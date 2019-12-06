@@ -23,6 +23,6 @@
   "homepage": "https://github.com/AmnesicOblex/chracter-creator#readme",
   "dependencies": {
     "@amnesic0blex/dice": "^1.0.2",
-    "@amnesic0blex/tables": "^1.0.1"
+    "@amnesic0blex/tables": "^1.0.2"
   }
 }

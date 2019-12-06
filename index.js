@@ -98,6 +98,53 @@ function addRacialBonuses (abilityScores, race, customIncrease) {
     return scores
 }
 
+/**
+ * Rolls height and weight for the given race and gender.
+ * @param {String} race The race height and weight tables to use.
+ * @param {String} gender Male or female.
+ * @returns Object with height and weight
+ */
+function rollHeightWeight (race, gender) {
+    var body = tables.races[race].body
+    var height = improperFeetToInches(body.baseHeight)
+    var weight = body.baseWeight
+    var heightMod = dice.roll(body.heightMod[0],body.heightMod[1]).reduce(dice.getSum)
+    height = height + heightMod
+    var weightMod = dice.roll(body.weightMod[0],body.weightMod[1]).reduce(dice.getSum)
+    weightMod = weightMod * heightMod
+    if (gender === 'female') {
+        weight = Math.floor(weight * 0.8)
+    }
+    weight = weight + weightMod
+    var body = {
+        height: inchesToImproperFeet(height),
+        weight: weight
+    }
+    return body
+}
+
+/**
+ * Converts inches to feet and inches.
+ * @param {Number} inches Raw inches.
+ * @returns String with feet and inch conversion
+ */
+function inchesToImproperFeet (inches) {
+    return `${Math.floor(inches / 12)}'${inches % 12}"`
+}
+
+/**
+ * Converts a string of feet and inches to a number inches.
+ * @param {String} quantity String with feet and inches
+ * @returns Number with total numbers of inches.
+ */
+function improperFeetToInches (quantity) {
+    var regex = /(\d)'(\d*)"/
+    var capture = quantity.match(regex)
+    var feet = parseInt(capture[1],10) * 12
+    var inches = parseInt(capture[2],10)
+    return feet + inches
+}
+
 module.exports = {
     /**
      * Rolls 6 raw ability scores.
@@ -132,5 +179,15 @@ module.exports = {
      */
     addRacialBonuses (abilityScores, race, customIncrease) {
         return addRacialBonuses(abilityScores, race, customIncrease)
+    },
+
+    /**
+     * Rolls height and weight for the given race and gender.
+     * @param {String} race The race height and weight tables to use.
+     * @param {String} gender Male or female.
+     * @returns Object with height and weight
+     */
+    rollHeightWeight (race, gender) {
+        return rollHeightWeight(race, gender)
     }
 }
