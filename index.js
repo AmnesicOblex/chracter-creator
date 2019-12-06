@@ -1,6 +1,17 @@
 const dice = require('@amnesic0blex/dice')
 const tables = require('@amnesic0blex/tables')
 
+// TODO: Character class.
+// TODO: Character roll function.
+// TODO: Fast PC roll function.
+// TODO: NPC class.
+// TODO: Fast NPC roll function.
+// TODO: Deal with half elves.
+// TODO: Roll height and weight.
+// TODO: Roll name.
+// TODO: Roll age.
+// TODO: Script for commander npc and pc rolling?
+
 /**
  * Rolls 6 raw ability scores by rolling 4d6 and dropping the lowest.
  * @returns Returns an array of 6 unmodified scores.
